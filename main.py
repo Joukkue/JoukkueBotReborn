@@ -2,6 +2,7 @@ from telegram.ext import Updater, CommandHandler, run_async, MessageHandler, fil
 import logging
 import requests
 
+from secrets import DEVELOP_BOT_TOKEN
 from word_lists import beer, spruit
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -83,7 +84,7 @@ def check_message(update, context):
 
 
 def main():
-    updater = Updater('344427823:AAEuGoOkLJ_bMa-WVhPg7Toephtt_f8y91M', use_context=True)
+    updater = Updater(DEVELOP_BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start', start))
     dp.add_handler(CommandHandler('addquote', addquote))
