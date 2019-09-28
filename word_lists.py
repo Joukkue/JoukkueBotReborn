@@ -15,4 +15,5 @@ spruit = [
     "tulimme",
     "tultiin",
     "tule",
+    "tuli",
 ]
