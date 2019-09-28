@@ -1,10 +1,8 @@
 from telegram.ext import Updater, CommandHandler, run_async, MessageHandler, filters
 import logging
-import requests
 from src.quotes import readquote, listquotes, addquote
 from secrets import DEVELOP_BOT_TOKEN
-from word_lists import beer, spruit
-from src.utils import check_message, start
+from src.utils import check_message, start, uptime
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                      level=logging.INFO)
@@ -15,7 +13,8 @@ COMMANDLIST = [
     ('quote', readquote),
     ('listquotes', listquotes),
     ('addquote', addquote),
-    ('start', start)
+    ('start', start),
+    ('uptime',uptime),
 ]
 '''
 Add your command to the commandlist

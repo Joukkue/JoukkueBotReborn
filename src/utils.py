@@ -1,9 +1,13 @@
+import time
+
 from telegram.ext import run_async
 import requests
 
 from word_lists import beer, spruit
 
 URL_BASE = 'http://127.0.0.1:8000/'
+global START_TIME
+START_TIME = time.time()
 
 
 def tissit(chat, message):
@@ -38,4 +42,19 @@ def check_message(update, context):
 
 def start(update, context):
     context.bot.send_message(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
+
+
+def uptime(update, context):
+    chat = update.effective_chat
+    r_t_hours = (time.time() - START_TIME) // 3600
+    r_t_minutes = (time.time() - START_TIME) % 3600 / 60
+    r_t_seconds = (time.time() - START_TIME) % 3600 % 60
+    msg = ""
+    if r_t_hours >= 1:
+        msg = "{:.0f}h {:.0f}min".format(r_t_hours, r_t_minutes,)
+    elif r_t_minutes >= 1:
+        msg = "{:.0f}min {:.0f}seconds".format(r_t_minutes, r_t_seconds)
+    else:
+        msg = "{:.2f} seconds".format(r_t_seconds)
+    chat.send_message(text=msg)
 
