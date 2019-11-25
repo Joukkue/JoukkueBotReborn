@@ -28,9 +28,10 @@ def olut(chat, message):
 def check_message(update, context):
     chat = update.effective_chat
     message = update.message.text
-    tuli(chat, message)
-    olut(chat, message)
-    tissit(chat, message)
+    message_low = message.lower()
+    tuli(chat, message_low)
+    olut(chat, message_low)
+    tissit(chat, message_low)
     data = {
         'username': update.effective_user.username,
         'userid': update.effective_user.id,
