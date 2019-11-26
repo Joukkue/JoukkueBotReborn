@@ -10,9 +10,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 URL_BASE = 'http://127.0.0.1:8000/'
 
 COMMANDLIST = [
-    ('quote', readquote),
+    ('readquote', readquote),
     ('listquotes', listquotes),
-    ('addquote', addquote),
+    ('insertquote', addquote),
     ('start', start),
     ('uptime',uptime),
 ]
