@@ -24,14 +24,33 @@ def olut(chat, message):
     if any(word in message for word in beer):
         chat.send_message(text="Sanoiko joku kaljaa?")
 
+
+@run_async
+def check_text_message(update, context):
+    chat = update.effective_chat
+    if update.message:
+        message = update.message.text
+        message_low = message.lower()
+        tuli(chat, message_low)
+        olut(chat, message_low)
+        tissit(chat, message_low)
+    elif update.edited_message:
+        updated_message = update.edited_message.text
+        message_low = updated_message.lower()
+        tuli(chat, message_low)
+        olut(chat, message_low)
+        tissit(chat, message_low)
+    data = {
+        'username': update.effective_user.username,
+        'userid': update.effective_user.id,
+        'chatid': update.effective_chat.id,
+        'chatname': update.effective_chat.title,
+    }
+    requests.post(URL_BASE + 'api/update', data)
+
+
 @run_async
 def check_message(update, context):
-    chat = update.effective_chat
-    message = update.message.text
-    message_low = message.lower()
-    tuli(chat, message_low)
-    olut(chat, message_low)
-    tissit(chat, message_low)
     data = {
         'username': update.effective_user.username,
         'userid': update.effective_user.id,

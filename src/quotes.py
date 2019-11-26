@@ -32,10 +32,10 @@ def readquote(update, context):
     try:
         tag = update.message.text.split(' ', 1)[1]
         response = requests.get(URL_BASE + 'api/quotes/' + tag).json()
-        chat.send_message(text=response['message'])
     except IndexError:
-        chat.send_message(text="Please provide a tag")
+        response = requests.get(URL_BASE + 'api/quotes/random').json()
 
+    chat.send_message(text=response['message'])
 
 @run_async
 def listquotes(update, context):
