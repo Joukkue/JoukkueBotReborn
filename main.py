@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler, run_async, MessageHandler, filters
 import logging
 from src.quotes import readquote, listquotes, addquote
-from secrets import DEVELOP_BOT_TOKEN
+from secrets import DEVELOP_BOT_TOKEN, BOT_TOKEN
 from src.utils import check_text_message, start, uptime, check_message
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -34,7 +34,7 @@ def check_message_handler(update, context):
 
 
 def main():
-    updater = Updater(DEVELOP_BOT_TOKEN, use_context=True)
+    updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
     for command in COMMANDLIST:
         dp.add_handler(CommandHandler(command[0], command[1]))
