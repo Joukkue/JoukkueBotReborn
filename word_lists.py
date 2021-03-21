@@ -5,6 +5,7 @@ beer = [
     "olunen",
     "beer",
     "öl",
+    "börsta",
 ]
 
 spruit = [
@@ -16,4 +17,9 @@ spruit = [
     "tultiin",
     "tule",
     "tuli",
+    "tuutte",
+    "tulitsä",
+    "tuutteko",
+    "tuut",
+    "tuun",
 ]
