@@ -1,6 +1,5 @@
 import time
 
-from telegram.ext import run_async
 import requests
 
 from word_lists import beer, spruit
@@ -25,8 +24,7 @@ def olut(chat, message):
         chat.send_message(text="Sanoiko joku kaljaa?")
 
 
-@run_async
-def check_text_message(update, context):
+async def check_text_message(update, context):
     chat = update.effective_chat
     if update.message:
         message = update.message.text
@@ -46,35 +44,39 @@ def check_text_message(update, context):
         'chatid': update.effective_chat.id,
         'chatname': update.effective_chat.title,
     }
-    requests.post(URL_BASE + 'api/update', data)
+    try:
+        requests.post(URL_BASE + 'api/update', data)
+    except:
+        print("Couldn't connect to backend")
 
 
-@run_async
-def check_message(update, context):
+async def check_message(update, context):
     data = {
         'username': update.effective_user.username,
         'userid': update.effective_user.id,
         'chatid': update.effective_chat.id,
         'chatname': update.effective_chat.title,
     }
-    requests.post(URL_BASE + 'api/update', data)
+    try:
+        requests.post(URL_BASE + 'api/update', data)
+    except:
+        print("Couldn't connect to backend")
 
 
 def start(update, context):
     context.bot.send_message(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
 
 
-def uptime(update, context):
+async def uptime(update, context):
     chat = update.effective_chat
     r_t_hours = (time.time() - START_TIME) // 3600
     r_t_minutes = (time.time() - START_TIME) % 3600 / 60
     r_t_seconds = (time.time() - START_TIME) % 3600 % 60
-    msg = ""
     if r_t_hours >= 1:
         msg = "{:.0f}h {:.0f}min".format(r_t_hours, r_t_minutes,)
     elif r_t_minutes >= 1:
         msg = "{:.0f}min {:.0f}seconds".format(r_t_minutes, r_t_seconds)
     else:
         msg = "{:.2f} seconds".format(r_t_seconds)
-    chat.send_message(text=msg)
+    await chat.send_message(text=msg)
 
