@@ -1,7 +1,7 @@
 from telegram.ext import CommandHandler, MessageHandler, filters, Application
 import logging
 from src.quotes import readquote, listquotes, addquote
-from secrets import DEVELOP_BOT_TOKEN
+from secrets import DEVELOP_BOT_TOKEN, JOUKKUE_TOKEN
 from src.utils import check_text_message, start, uptime, check_message
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -32,7 +32,7 @@ async def check_message_handler(update, context):
 
 
 def main():
-    application = Application.builder().token(DEVELOP_BOT_TOKEN).build()
+    application = Application.builder().token(JOUKKUE_TOKEN).build()
 
     application.add_handler(MessageHandler(filters.TEXT, check_text_message_handler))
     application.add_handler(MessageHandler(filters.ALL, check_message_handler), group=1)
