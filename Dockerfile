@@ -4,8 +4,6 @@ RUN mkdir "bot"
 ADD . /bot
 
 WORKDIR /bot
-
-RUN apt-get update
 RUN pip install -r requirements.txt
 
 
