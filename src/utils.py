@@ -9,19 +9,19 @@ global START_TIME
 START_TIME = time.time()
 
 
-def tissit(chat, message):
+async def tissit(chat, message):
     if "tissit" in message:
-        chat.send_photo(photo=open('media/koirakuva-6.jpg', 'rb'))
+        await chat.send_photo(photo=open('media/koirakuva-6.jpg', 'rb'))
 
 
-def tuli(chat, message):
+async def tuli(chat, message):
     if any(word in message for word in spruit):
-        chat.send_message(text="spruit")
+        await chat.send_message(text="spruit")
 
 
-def olut(chat, message):
+async def olut(chat, message):
     if any(word in message for word in beer):
-        chat.send_message(text="Sanoiko joku kaljaa?")
+        await chat.send_message(text="Sanoiko joku kaljaa?")
 
 
 async def check_text_message(update, context):
@@ -29,15 +29,15 @@ async def check_text_message(update, context):
     if update.message:
         message = update.message.text
         message_low = message.lower()
-        tuli(chat, message_low)
-        olut(chat, message_low)
-        tissit(chat, message_low)
+        await tuli(chat, message_low)
+        await olut(chat, message_low)
+        await tissit(chat, message_low)
     elif update.edited_message:
         updated_message = update.edited_message.text
         message_low = updated_message.lower()
-        tuli(chat, message_low)
-        olut(chat, message_low)
-        tissit(chat, message_low)
+        await tuli(chat, message_low)
+        await olut(chat, message_low)
+        await tissit(chat, message_low)
     data = {
         'username': update.effective_user.username,
         'userid': update.effective_user.id,
@@ -72,7 +72,10 @@ async def uptime(update, context):
     r_t_hours = (time.time() - START_TIME) // 3600
     r_t_minutes = (time.time() - START_TIME) % 3600 / 60
     r_t_seconds = (time.time() - START_TIME) % 3600 % 60
-    if r_t_hours >= 1:
+    r_t_days = r_t_hours // 24
+    if r_t_days >= 1:
+        msg = "{:.0f}d {:.0f}h".format(r_t_days, r_t_hours,)
+    elif r_t_hours >= 1:
         msg = "{:.0f}h {:.0f}min".format(r_t_hours, r_t_minutes,)
     elif r_t_minutes >= 1:
         msg = "{:.0f}min {:.0f}seconds".format(r_t_minutes, r_t_seconds)
